@@ -20,9 +20,35 @@ I'll locate and review the calculate_bigram_probabilities function definitions f
 ----
 Query:
 ```
+[attached screenshot of results]
+Yeah, these are the metrics for Naive Bayes classifier and the much more complex bidirectional LSTM model.
+The BiLSTM outperforms the NB model in every category but the recall one - I am trying to understand why is it so.
 ```
 Answer:
 ```
+Ah, now I see the specific table you're referring to! This appears to be from a paper about answerability detection across different languages (Finnish, Japanese, and Russian).
+
+Looking at the metrics:
+1. Naive Bayes (NB) consistently has 1.0 (100%) recall across languages
+2. BiLSTM has slightly lower recall but better precision and overall accuracy
+
+This pattern makes sense because:
+
+1. NB's Perfect Recall Explanation:
+- As a generative model, NB assigns every question to either "answerable" or "not answerable"
+- It's likely being very "optimistic" and classifying most questions as answerable
+- This means it catches all truly answerable questions (perfect recall)
+- But it probably also incorrectly classifies some unanswerable questions as answerable (lower precision)
+
+2. BiLSTM's Better Overall Performance:
+- While it misses a few answerable questions (slightly lower recall)
+- It's much more precise in its predictions
+- This leads to better F1 scores and accuracy
+- It's making more balanced decisions rather than being overly optimistic
+
+The key insight is that NB's perfect recall might actually be a weakness here - it's achieving it by being too liberal in classifying questions as answerable, while the BiLSTM is making more nuanced, accurate decisions overall, even if it occasionally misses some answerable questions.
+
+Would you like me to elaborate on any part of this analysis?
 ```
 ----
 Query:
